@@ -330,7 +330,7 @@ return stock - 1
 
 ```bash
 # 1. 拉取代码
-git clone <your-repo-url> linjian-seckill
+git clone https://github.com/0109Gao/linjian-seckill.git
 cd linjian-seckill
 
 # 2. 一条命令拉起全栈（首次会自动建表 + 灌种子数据）
