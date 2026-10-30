@@ -1,0 +1,35 @@
+const { chromium } = require('playwright-core')
+;(async () => {
+  const b = await chromium.launch({ channel: 'msedge', headless: true })
+  const ctx = await b.newContext({ viewport: { width: 1600, height: 950 } })
+  const p = await ctx.newPage()
+  const lg = await fetch('http://localhost/api/auth/login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({username:'admin',password:'123456'}) }).then(r=>r.json())
+  await p.goto('http://localhost/admin/login')
+  await p.evaluate(([t,r])=>{localStorage.setItem('accessToken',t);localStorage.setItem('refreshToken',r)},[lg.data.accessToken,lg.data.refreshToken])
+  await p.goto('http://localhost/admin/orders')
+  await p.waitForLoadState('networkidle'); await p.waitForTimeout(1500)
+
+  const first = async () => (await p.locator('.el-table__body tr').first().locator('td').nth(1).textContent())?.trim()
+  const totalTxt = (await p.locator('.el-pagination__total').textContent().catch(()=>''))?.trim()
+  console.log('分页总数文本:', totalTxt)
+
+  const a = await first()
+  await p.locator('.el-pagination .btn-next').click()
+  await p.waitForTimeout(1800)
+  const b2 = await first()
+  console.log('第1页首行订单号 =', a)
+  console.log('第2页首行订单号 =', b2)
+  console.log('翻页是否生效 =', a !== b2)
+
+  // 每页条数切换
+  await p.locator('.el-pagination .el-select').click()
+  await p.waitForTimeout(600)
+  const opts = await p.locator('.el-select-dropdown__item:visible').allTextContents()
+  console.log('每页条数选项:', opts.map(o=>o.trim()))
+  await p.locator('.el-select-dropdown__item:visible:has-text("20")').click()
+  await p.waitForTimeout(1800)
+  const rows = await p.locator('.el-table__body tr').count()
+  console.log('切到 20 条/页后行数 =', rows)
+
+  await b.close()
+})()

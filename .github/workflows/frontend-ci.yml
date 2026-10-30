@@ -1,0 +1,49 @@
+# ============================================================
+# 林间秒杀 · 前端 CI
+# 触发：push 到 main / 对前端相关改动的 PR
+# 内容：分别对 user / admin 两个前端做 install + build
+# ============================================================
+
+name: frontend-ci
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'frontend-user/**'
+      - 'frontend-admin/**'
+  pull_request:
+    branches: [ main ]
+    paths:
+      - 'frontend-user/**'
+      - 'frontend-admin/**'
+
+jobs:
+  build:
+    name: Build frontends
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        app:
+          - frontend-user
+          - frontend-admin
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+          cache-dependency-path: ${{ matrix.app }}/package-lock.json
+
+      - name: Install dependencies
+        working-directory: ${{ matrix.app }}
+        run: npm ci
+
+      - name: Build
+        working-directory: ${{ matrix.app }}
+        run: npm run build

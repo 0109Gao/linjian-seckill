@@ -1,0 +1,27 @@
+# 统一换行符：仓库内文本一律以 LF 存储。
+# 否则 Windows 下 checkout 出来的 Dockerfile / nginx.conf 会带 CRLF，
+# 在 Linux 容器里可能出现 "exec format error" 或脚本里的 $'\r': command not found。
+* text=auto eol=lf
+
+# PowerShell / 批处理保留 CRLF，Windows 原生工具链更友好
+*.ps1 text eol=crlf
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# 二进制文件：禁止 Git 做换行转换，也禁止 diff
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.webp binary
+*.tar  binary
+*.gz   binary
+*.jar  binary
+*.woff binary
+*.woff2 binary
+*.ttf  binary
+*.eot  binary
+
+# SVG 是文本，但保留为 LF
+*.svg text eol=lf

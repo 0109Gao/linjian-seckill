@@ -1,0 +1,82 @@
+:root {
+  --sk-primary: #e93b3d;
+  --sk-primary-dark: #c62828;
+  --sk-primary-light: #fff1f0;
+  --sk-text: #1f2329;
+  --sk-text-sub: #646a73;
+  --sk-border: #ebedf0;
+  --sk-bg: #f5f6f7;
+  --sk-radius: 10px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC',
+    'Microsoft YaHei', sans-serif;
+  color: var(--sk-text);
+  background: var(--sk-bg);
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* 覆盖 Element Plus 主色，使按钮/标签与页面主色一致 */
+:root {
+  --el-color-primary: #e93b3d;
+  --el-color-primary-light-3: #f06a6c;
+  --el-color-primary-light-5: #f49193;
+  --el-color-primary-light-7: #f8b8b9;
+  --el-color-primary-light-8: #faccce;
+  --el-color-primary-light-9: #fff1f0;
+  --el-color-primary-dark-2: #c62828;
+}
+
+.page-wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+}
+
+.page-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.page-title::before {
+  content: '';
+  width: 4px;
+  height: 18px;
+  border-radius: 2px;
+  background: var(--sk-primary);
+}
+
+.muted {
+  color: var(--sk-text-sub);
+  font-size: 13px;
+}
+
+.price-now {
+  color: var(--sk-primary);
+  font-weight: 700;
+}
+
+.price-origin {
+  color: #a8abb2;
+  text-decoration: line-through;
+  font-size: 13px;
+  margin-left: 6px;
+}
