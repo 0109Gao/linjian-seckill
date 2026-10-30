@@ -12,10 +12,13 @@ on:
     paths:
       - 'backend/**'
       - 'sql/**'
+      - '.github/workflows/backend-ci.yml'
   pull_request:
     branches: [ main ]
     paths:
       - 'backend/**'
+  # 支持在 Actions 页面手动触发，便于首次验证或重跑
+  workflow_dispatch:
 
 jobs:
   build:

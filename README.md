@@ -1,5 +1,8 @@
 # 林间秒杀 · 高并发限时秒杀系统
 
+[![backend-ci](https://github.com/0109Gao/linjian-seckill/actions/workflows/backend-ci.yml/badge.svg)](https://github.com/0109Gao/linjian-seckill/actions/workflows/backend-ci.yml)
+[![frontend-ci](https://github.com/0109Gao/linjian-seckill/actions/workflows/frontend-ci.yml/badge.svg)](https://github.com/0109Gao/linjian-seckill/actions/workflows/frontend-ci.yml)
+
 一套可直接上线的电商秒杀系统，包含 **C 端抢购站** 与 **B 端运营后台**。
 核心目标只有一个：**在瞬时高并发下既不超卖，也不把系统打垮。**
 
